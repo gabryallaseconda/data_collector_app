@@ -2,8 +2,11 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+from flask_celery import Celery
+
 db = SQLAlchemy()
 migrate = Migrate()
+celery = Celery()
 
 
 def page_not_found(error):
@@ -30,4 +33,7 @@ def create_app(object_name):
     app.register_blueprint(main_blueprint)
     app.register_blueprint(blog_blueprint)
     app.register_error_handler(404, page_not_found)
+
+    celery.init_app(app)
+
     return app

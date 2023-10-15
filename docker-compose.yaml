@@ -12,3 +12,16 @@ services:
     ports:
       - "5432:5432"
 
+  rabbitmq:
+    restart: always
+    image: "rabbitmq:3-management"  # Use the RabbitMQ image with the management plugin
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # RabbitMQ default AMQP port
+      - "15672:15672"  # RabbitMQ Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+
+
